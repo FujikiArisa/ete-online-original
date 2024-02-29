@@ -762,17 +762,22 @@ aside {
     /* .sp-menu01 > li:nth-child(5) > ul   セレクタ >=子要素   +弟要素*/
 
     .sp-menu01>li>a:has(+ ul) {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: block;
+        position: relative;
     }
 
     .sp-menu01>li>a+ul {
+        max-height: 0;
+        overflow-y: hidden;
+        transition: all .5s ease;
+    }
+    .sp-menu01>li.active > a + ul {
+        max-height: 100vh;
         margin-top: 1em;
         border-top: 1px solid #ccc;
     }
 
-    .sp-menu01>li>a+ul li {
+    .sp-menu01>li.active>a+ul li {
         text-indent: 2em;
     }
 
@@ -783,9 +788,11 @@ aside {
     .sp-menu01>li>a:has(+ ul)::after {
         content: "\e5cf";
         /*unicodeはバックスラッシュが必要 aption+¥で入力*/
-        display: block;
+        position: absolute;
         font-size: 2em;
-        font-weight: 300;
+        width: 1em;
+        line-height: .7;
+        right: 1em;
         color: #b3b3b3;
         font-family: 'Material Symbols Outlined';
         font-weight: normal;
@@ -794,28 +801,12 @@ aside {
         transform-origin: center;
     }
 
-
-    .sp-menu01 > li:nth-child(5){
-        position: relative;
+    .sp-menu01>li.active a:has(+ ul)::after {
+        transform: rotateX(180deg);
     }
-
-
-    .sp-menu01 > li.sub-menu a:has(+ ul)::after {
-        /* content: "\eae6"; */
-        transform: rotateZ(180deg);
-    }
-
 
     .list-menu01 {
         background-color: #f2f2f2;
-        position: absolute;
-        max-height: 0px;
-    }
-
-
-    .sp-menu01 > li.active a:has(+ ul)::after .list-menu0{
-        position: absolute;
-        transform: scaleY(1);
     }
 
 
